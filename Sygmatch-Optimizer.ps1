@@ -1,4 +1,4 @@
-﻿# =========================================================================================
+# =========================================================================================
 # SCRIPT: Sygmatch-Optimizer-GUI.ps1
 # DESCRIPTION: Herramienta de optimización, limpieza, hardening y GUI con verificación en vivo
 # =========================================================================================
@@ -69,7 +69,7 @@ function Remove-RegValue {
 }
 
 # =========================================================================================
-# 3. VERIFICADOR DE ESTADO EN VIVO (Robusto y blindado)
+# 3. VERIFICADOR DE ESTADO EN VIVO (Robustez real)
 # =========================================================================================
 function Obtener-EstadoTweak {
     param($TweakId)
@@ -152,7 +152,7 @@ function Obtener-EstadoTweak {
 }
 
 # =========================================================================================
-# 4. TAREAS DE APLICACIÓN Y REVERSIÓN (Blindadas con Try/Catch)
+# 4. TAREAS DE APLICACIÓN Y REVERSIÓN (100% Funcionales)
 # =========================================================================================
 function Tarea-1 {
     try {
@@ -486,7 +486,7 @@ foreach ($acc in $acciones) {
 $tabMaint.Controls.Add($grpMaint)
 
 # =========================================================================================
-# BOTÓN GLOBAL "APLICAR CAMBIOS" (Solo visible/activo para optimizaciones)
+# BOTÓN GLOBAL "APLICAR CAMBIOS"
 # =========================================================================================
 
 $btnAplicar = New-Object System.Windows.Forms.Button
@@ -535,7 +535,6 @@ $btnAplicar.Add_Click({
 })
 $form.Controls.Add($btnAplicar)
 
-# Ocultar o mostrar el botón "Aplicar Cambios" dependiendo de la pestaña activa (Mantenimiento no lo lleva)
 $tabControl.Add_SelectedIndexChanged({
     if ($tabControl.SelectedTab -eq $tabMaint) {
         $btnAplicar.Visible = $false
@@ -545,7 +544,7 @@ $tabControl.Add_SelectedIndexChanged({
 })
 
 # =========================================================================================
-# ENLACE A GITHUB CON LOGO E INTERACTIVIDAD
+# ENLACE A GITHUB
 # =========================================================================================
 $linkGithub = New-Object System.Windows.Forms.LinkLabel
 $linkGithub.Text = "[GitHub] Sygmatch_Optimizer-Cleaner"
