@@ -439,7 +439,7 @@ foreach ($op in $listaOpciones) {
     }
 }
 
-# --- CONTENIDO PESTAÑA MANTENIMIENTO (SIN -NoExit PARA PERMITIR CIERRE CORRECTO CON ENTER) ---
+# --- CONTENIDO PESTAÑA MANTENIMIENTO (AJUSTADO: SIN REINICIO DE IP PARA PROTEGER IP FIJA) ---
 $grpMaint = New-Object System.Windows.Forms.GroupBox
 $grpMaint.Text = " Herramientas de Mantenimiento Avanzado (Progreso Visible en Consola) "
 $grpMaint.ForeColor = [System.Drawing.Color]::LightGray
@@ -452,7 +452,7 @@ $acciones = @(
     @{ Text = "Diagnóstico Inteligente de Almacenamiento (TRIM / Unidades)"; Action = 'foreach($d in Get-PhysicalDisk){$d}; foreach($d in Get-PhysicalDisk) { if($d.MediaType -eq "SSD") { Optimize-Volume -DriveLetter C -ReTrim -Verbose } else { Optimize-Volume -DriveLetter C -Defrag -Verbose } }; Write-Host ""; Read-Host "Proceso finalizado. Presione Enter para salir"' },
     @{ Text = "Limpieza de Archivos Temporales y Caché del Sistema"; Action = 'Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue; Write-Host "¡Archivos temporales eliminados con éxito!"; Read-Host "Presione Enter para salir"' },
     @{ Text = "Optimización de WinSxS (Limpieza de Componentes Base)"; Action = 'dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase; Write-Host ""; Read-Host "Proceso finalizado. Presione Enter para salir"' },
-    @{ Text = "Restablecimiento Completo de Capas de Red y DNS"; Action = 'ipconfig /flushdns; netsh int ip reset; netsh winsock reset; Write-Host ""; Read-Host "Capas de red restablecidas. Presione Enter para salir"' }
+    @{ Text = "Restablecimiento de Caché DNS y Winsock (Seguro para IP Fija)"; Action = 'ipconfig /flushdns; netsh winsock reset; Write-Host ""; Read-Host "Caché DNS y Winsock restablecidos. Presione Enter para salir"' }
 )
 
 $yBtn = 35
