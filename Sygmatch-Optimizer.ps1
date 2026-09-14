@@ -69,7 +69,7 @@ function Remove-RegValue {
 }
 
 # =========================================================================================
-# 3. VERIFICADOR DE ESTADO EN VIVO (Robustez real)
+# 3. VERIFICADOR DE ESTADO EN VIVO
 # =========================================================================================
 function Obtener-EstadoTweak {
     param($TweakId)
@@ -86,7 +86,7 @@ function Obtener-EstadoTweak {
             }
             3 {
                 $val = Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -ErrorAction SilentlyContinue
-                if ($val -eq 3) { $aplicado = $true }
+                if ($val -eq 2) { $aplicado = $true }
             }
             4 {
                 $val = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" -Name "DODownloadMode" -ErrorAction SilentlyContinue
@@ -152,7 +152,7 @@ function Obtener-EstadoTweak {
 }
 
 # =========================================================================================
-# 4. TAREAS DE APLICACIÓN Y REVERSIÓN (100% Funcionales)
+# 4. TAREAS DE APLICACIÓN Y REVERSIÓN
 # =========================================================================================
 function Tarea-1 {
     try {
@@ -181,14 +181,20 @@ function Revertir-2 {
 
 function Tarea-3 {
     try {
-        Set-RegKey -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Value 3
+        Set-RegKey -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Value 2
         Set-RegKey -Path "HKCU:\Control Panel\Desktop" -Name "MinAnimate" -Value 0 -PropertyType String
+        Set-RegKey -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Value 0 -PropertyType String
+        Set-RegKey -Path "HKCU:\Control Panel\Desktop" -Name "FontSmoothing" -Value 2 -PropertyType String
+        Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
     } catch {}
 }
 function Revertir-3 {
     try {
         Set-RegKey -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Value 1
         Set-RegKey -Path "HKCU:\Control Panel\Desktop" -Name "MinAnimate" -Value 1 -PropertyType String
+        Set-RegKey -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Value 1 -PropertyType String
+        Set-RegKey -Path "HKCU:\Control Panel\Desktop" -Name "FontSmoothing" -Value 2 -PropertyType String
+        Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
     } catch {}
 }
 
@@ -370,7 +376,6 @@ $tabControl.Size = New-Object System.Drawing.Size(875, 485)
 $tabControl.Font = New-Object System.Drawing.Font("Segoe UI", 9.5)
 $form.Controls.Add($tabControl)
 
-# Pestañas limpias
 $tabOpt1 = New-Object System.Windows.Forms.TabPage
 $tabOpt1.Text = "Privacidad, Bloatware e IA"
 $tabOpt1.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#1f1f1f")
@@ -386,11 +391,10 @@ $tabMaint.Text = "Limpieza y Mantenimiento"
 $tabMaint.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#1f1f1f")
 $tabControl.Controls.Add($tabMaint)
 
-# --- LISTA DE OPCIONES ---
 $listaOpciones = @(
     @{ Id = 1; Name = "1. Remover Bloatware UWP y Telemetría de Consumo"; Tab = $tabOpt1 },
     @{ Id = 2; Name = "2. Privacidad y Telemetría Segura"; Tab = $tabOpt1 },
-    @{ Id = 3; Name = "3. Efectos Visuales Balanceados"; Tab = $tabOpt1 },
+    @{ Id = 3; Name = "3. Efectos Visuales Balanceados (Con reinicio Explorer)"; Tab = $tabOpt1 },
     @{ Id = 4; Name = "4. Desactivar Optimización de Entrega (P2P)"; Tab = $tabOpt1 },
     @{ Id = 5; Name = "5. Tweaks de Barra de Tareas (Según Versión)"; Tab = $tabOpt1 },
     @{ Id = 6; Name = "6. Desactivar Hibernación (Libera RAM en Disco)"; Tab = $tabOpt1 },
@@ -405,7 +409,6 @@ $listaOpciones = @(
     @{ Id = 15; Name = "15. Rendimiento de Sistema (Cierre Rápido y Búsqueda Bing)"; Tab = $tabOpt2 }
 )
 
-# Renderizar Checkboxes con verificación de estado en vivo real
 $yPosTab1 = 20
 $yPosTab2 = 20
 
@@ -415,11 +418,10 @@ foreach ($op in $listaOpciones) {
     $chk.Name = "chk_$($op.Id)"
     $chk.Size = New-Object System.Drawing.Size(820, 26)
     
-    # Comprobación estricta en vivo
     $estadoActual = Obtener-EstadoTweak $op.Id
     if ($estadoActual) {
         $chk.Checked = $true
-        $chk.ForeColor = [System.Drawing.ColorTranslator]::FromHtml("#00FFCC") # Verde brillante
+        $chk.ForeColor = [System.Drawing.ColorTranslator]::FromHtml("#00FFCC")
         $chk.Font = New-Object System.Drawing.Font("Segoe UI", 9.5, [System.Drawing.FontStyle]::Bold)
     } else {
         $chk.Checked = $false
@@ -437,20 +439,20 @@ foreach ($op in $listaOpciones) {
     }
 }
 
-# --- CONTENIDO PESTAÑA MANTENIMIENTO ---
+# --- CONTENIDO PESTAÑA MANTENIMIENTO (SIN -NoExit PARA PERMITIR CIERRE CORRECTO CON ENTER) ---
 $grpMaint = New-Object System.Windows.Forms.GroupBox
-$grpMaint.Text = " Herramientas de Mantenimiento Avanzado (Acción Directa) "
+$grpMaint.Text = " Herramientas de Mantenimiento Avanzado (Progreso Visible en Consola) "
 $grpMaint.ForeColor = [System.Drawing.Color]::LightGray
 $grpMaint.Location = New-Object System.Drawing.Point(15, 10)
 $grpMaint.Size = New-Object System.Drawing.Size(840, 430)
 
 $acciones = @(
-    @{ Text = "Ejecutar DISM Completo (/ScanHealth y /RestoreHealth)"; Action = { & dism.exe /Online /Cleanup-Image /ScanHealth | Out-Null; & dism.exe /Online /Cleanup-Image /RestoreHealth | Out-Null } },
-    @{ Text = "Ejecutar SFC (/scannow)"; Action = { & sfc.exe /scannow | Out-Null } },
-    @{ Text = "Diagnóstico Inteligente de Almacenamiento (TRIM / CHKDSK)"; Action = { foreach ($d in Get-PhysicalDisk) { if($d.MediaType -eq "SSD") { Optimize-Volume -DriveLetter C -ReTrim -ErrorAction SilentlyContinue | Out-Null } } } },
-    @{ Text = "Limpieza de Archivos Temporales y Caché"; Action = { Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue } },
-    @{ Text = "Optimización de WinSxS (Limpieza de Componentes)"; Action = { & dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase | Out-Null } },
-    @{ Text = "Restablecimiento de Capas de Red y DNS"; Action = { & ipconfig /flushdns | Out-Null; & netsh int ip reset | Out-Null; & netsh winsock reset | Out-Null } }
+    @{ Text = "Ejecutar DISM Completo (ScanHealth y RestoreHealth con Progreso)"; Action = 'dism.exe /Online /Cleanup-Image /ScanHealth; dism.exe /Online /Cleanup-Image /RestoreHealth; Write-Host ""; Read-Host "Proceso finalizado. Presione Enter para salir"' },
+    @{ Text = "Ejecutar SFC /scannow (Verificación y Reparación de Sistema)"; Action = 'sfc.exe /scannow; Write-Host ""; Read-Host "Proceso finalizado. Presione Enter para salir"' },
+    @{ Text = "Diagnóstico Inteligente de Almacenamiento (TRIM / Unidades)"; Action = 'foreach($d in Get-PhysicalDisk){$d}; foreach($d in Get-PhysicalDisk) { if($d.MediaType -eq "SSD") { Optimize-Volume -DriveLetter C -ReTrim -Verbose } else { Optimize-Volume -DriveLetter C -Defrag -Verbose } }; Write-Host ""; Read-Host "Proceso finalizado. Presione Enter para salir"' },
+    @{ Text = "Limpieza de Archivos Temporales y Caché del Sistema"; Action = 'Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue; Write-Host "¡Archivos temporales eliminados con éxito!"; Read-Host "Presione Enter para salir"' },
+    @{ Text = "Optimización de WinSxS (Limpieza de Componentes Base)"; Action = 'dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase; Write-Host ""; Read-Host "Proceso finalizado. Presione Enter para salir"' },
+    @{ Text = "Restablecimiento Completo de Capas de Red y DNS"; Action = 'ipconfig /flushdns; netsh int ip reset; netsh winsock reset; Write-Host ""; Read-Host "Capas de red restablecidas. Presione Enter para salir"' }
 )
 
 $yBtn = 35
@@ -463,19 +465,18 @@ foreach ($acc in $acciones) {
     $btnAccion.ForeColor = [System.Drawing.Color]::White
     $btnAccion.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
     
-    $scriptBlock = $acc.Action
+    $btnAccion.Tag = $acc.Action
+    
     $btnAccion.Add_Click({
-        $resp = [System.Windows.Forms.MessageBox]::Show("¿Está seguro que desea ejecutar esta tarea de mantenimiento?", "Confirmación Requerida", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Warning)
+        $comandoAEjecutar = $this.Tag
+        $resp = [System.Windows.Forms.MessageBox]::Show("Se abrirá una consola dedicada para ejecutar este proceso en tiempo real y mostrar su avance porcentual. ¿Desea continuar?", "Confirmación de Mantenimiento", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Warning)
         if ($resp -eq 'Yes') {
-            $lblStatus.Text = "Progreso: Ejecutando tarea de mantenimiento..."
-            [System.Windows.Forms.Application]::DoEvents()
             try {
-                & $scriptBlock
-                [System.Windows.Forms.MessageBox]::Show("¡La tarea se ha ejecutado y aplicado con éxito!", "Éxito", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
-                $lblStatus.Text = "Progreso: Tarea completada con éxito."
+                $bytes = [System.Text.Encoding]::Unicode.GetBytes($comandoAEjecutar)
+                $encoded = [Convert]::ToBase64String($bytes)
+                Start-Process powershell.exe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -EncodedCommand $encoded" -Verb RunAs
             } catch {
-                [System.Windows.Forms.MessageBox]::Show("Ocurrió un error al ejecutar la tarea: $_", "Error", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
-                $lblStatus.Text = "Progreso: Error al ejecutar tarea."
+                [System.Windows.Forms.MessageBox]::Show("Ocurrió un error al iniciar la consola de proceso: $_", "Error", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
             }
         }
     })
@@ -525,7 +526,7 @@ $btnAplicar.Add_Click({
         }
 
         if ($erroresGlobales -eq 0) {
-            [System.Windows.Forms.MessageBox]::Show("¡Todas las configuraciones se han aplicado y guardado correctamente!", "Proceso Finalizado", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+            [System.Windows.Forms.MessageBox]::Show("¡Todas las configuraciones se han aplicado correctamente! (Los efectos visuales y el explorador se han actualizado).", "Proceso Finalizado", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
             $lblStatus.Text = "Progreso: Configuración aplicada con éxito."
         } else {
             [System.Windows.Forms.MessageBox]::Show("El proceso finalizó con algunas advertencias en $erroresGlobales opciones.", "Aviso", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Warning)
