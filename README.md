@@ -53,12 +53,12 @@ Junto a cada opción hay un icono **"?"**: al pasar el puntero o hacer clic sobr
 | **Cierre rápido de apps + quitar Bing** | Cierra más rápido los programas que no responden al apagar el equipo, y quita los resultados web de Bing de la búsqueda de Windows. | 🟢 Reversible |
 | **Desactivar SysMain (solo en SSD)** | Apaga un servicio que precarga programas en la memoria. Solo se desactiva si tu disco es de estado sólido (SSD), porque en un disco duro tradicional (HDD) sí ayuda y no se toca. | 🟢 Reversible |
 
-## 🌐 Red, Energía y Sistema
+## 🌐 RED, Energía y Sistema
 
 | Opción | Qué hace | Tipo |
 |---|---|---|
 | **Desactivar Optimización de Entrega** | Evita que tu PC comparta partes de las actualizaciones de Windows con otros equipos por internet, ahorrando tu ancho de banda de subida. | 🟢 Reversible |
-| **Red: reducir latencia (Nagle/QoS)** | Ajusta la configuración de red para reducir los tiempos de respuesta, útil sobre todo en juegos en línea. Pide reiniciar. | 🟢 Reversible |
+| **RED: reducir latencia (Nagle/QoS)** | Ajusta la configuración de red para reducir los tiempos de respuesta, útil sobre todo en juegos en línea. Pide reiniciar. | 🟢 Reversible |
 | **Plan de energía Alto rendimiento** | Pone el equipo en modo de máximo rendimiento. Solo se aplica en computadoras de escritorio, nunca en laptops, para no gastar la batería. | 🟢 Reversible |
 | **Desactivar Hibernación** | Libera varios GB de espacio en disco al apagar la hibernación (y el Inicio rápido). En laptops, el programa te avisa antes, porque la hibernación suele ser la red de seguridad cuando la batería está por agotarse. | 🟢 Reversible |
 | **Desactivar tareas de telemetría** | Apaga tareas internas de Windows que recopilan datos de uso del equipo (no afecta a Windows Update). | 🟢 Reversible |
