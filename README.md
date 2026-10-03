@@ -1,83 +1,100 @@
-Sygmatch Optimizer es una herramienta avanzada diseñada para automatizar la optimización, el mantenimiento y el endurecimiento de seguridad en sistemas Windows 10 y 11. Su propósito principal es eliminar la telemetría innecesaria, suprimir aplicaciones promocionales preinstaladas, bloquear características invasivas de inteligencia artificial y mejorar el rendimiento general del sistema operativo tanto para uso cotidiano como para gaming.
+# Sygmatch Optimizer Pro
 
-A continuacion se detalla el funcionamiento de cada uno de los modulos y opciones disponibles dentro de la interfaz grafica del programa, indicando tambien cuales de ellas permiten revertir sus cambios.
+Herramienta para Windows 10 y 11 que te ayuda a mejorar la privacidad, el rendimiento y el mantenimiento de tu equipo, con una consola que muestra en todo momento qué se está haciendo.
 
-MODULO DE PRIVACIDAD, BLOATWARE E INTELIGENCIA ARTIFICIAL
+## Requisitos
 
-1. Remover Bloatware UWP y Telemetria de Consumo
-Que hace: Desinstala de forma masiva aplicaciones de consumo no esenciales preinstaladas de fabrica que suelen ocupar espacio innecesario en el perfil de usuario, incluyendo juegos como Candy Crush o Solitario, aplicaciones de streaming como Spotify o Disney Plus, y herramientas de soporte opcionales como Obtener ayuda o Centro de opiniones. Ademas, deshabilita las caracteristicas de contenido comercial en la nube del sistema operativo.
-Se puede revertir: Si, al desmarcar la casilla y aplicar los cambios, el sistema vuelve a habilitar las directivas de caracteristicas comerciales en la nube.
+- Windows 10 o Windows 11
+- Permisos de administrador (el programa los pide automáticamente al abrirse)
 
-2. Privacidad y Telemetria Segura
-Que hace: Configura las directivas de diagnostico de Windows para reducir al minimo la recopilacion de datos de telemetria enviados a Microsoft y desactiva el identificador de publicidad personalizable para evitar el rastreo de comportamiento mediante anuncios dirigidos.
-Se puede revertir: Si, los valores de recopilacion de datos e identificadores publicitarios se restablecen a su configuracion estandar de fabrica.
+## Antes de aplicar cualquier cambio
 
-3. Efectos Visuales Balanceados
-Que hace: Ajusta la configuracion avanzada del explorador de archivos para priorizar el rendimiento visual, desactivando animaciones secundarias pesadas mientras mantiene la fluidez general de las ventanas.
-Se puede revertir: Si, restaura los efectos visuales predeterminados y las animaciones originales del escritorio.
+Al abrir el programa, se crea automáticamente un **punto de restauración** de Windows (si no hay uno reciente), para que puedas volver atrás desde "Restaurar sistema" si algo no te convence.
 
-4. Desactivar Optimizacion de Entrega (P2P)
-Que hace: Bloquea el mecanismo peer to peer que utiliza el sistema para descargar actualizaciones de Windows utilizandose mutuamente entre equipos de la red local o internet, evitando un consumo excesivo de ancho de banda en segundo plano.
-Se puede revertir: Si, permite reactivar el modo de descarga de optimizacion de entrega.
+Junto a cada opción hay un icono **"?"**: al pasar el puntero o hacer clic sobre él, se explica qué hace esa opción.
 
-5. Tweaks de Barra de Tareas (Segun Version)
-Que hace: Oculta elementos dinamicos e innecesarios de la barra de tareas dependiendo de si el equipo ejecuta Windows 10 o Windows 11, limpiando la interfaz visual principal.
-Se puede revertir: Si, devuelve los elementos ocultos de la barra de tareas a su estado visible original.
+## Leyenda (junto a cada opción)
 
-6. Desactivar Hibernacion (Libera RAM en Disco)
-Que hace: Desactiva por completo la funcion de hibernacion del sistema operativo mediante comandos de energia nativos, eliminando el archivo de sistema ocupado en la unidad principal y liberando una cantidad considerable de almacenamiento.
-Se puede revertir: Si, la hibernacion puede volver a habilitarse en cualquier momento.
+| Etiqueta | Significado |
+|---|---|
+| 🟢 **Reversible** | Puedes desmarcar la casilla en cualquier momento y el cambio se deshace. |
+| 🟡 **Parcial** | El ajuste se puede deshacer, pero alguna parte (como una app eliminada) no se puede restaurar desde el programa. |
+| 🔴 **No reversible** | La acción no se puede deshacer (por ejemplo, borrar archivos). |
+| 🔵 **Seguro / Solo informa** | No representa ningún riesgo; algunas opciones solo muestran información sin cambiar nada. |
+| ⚠️ **Alto riesgo** | Reduce la seguridad de tu equipo. Pide una confirmación adicional antes de aplicarse. |
 
-7. Desactivar Xbox Game Bar y DVR
-Que hace: Desactiva las funciones de grabacion automatica en segundo plano y la barra de juegos de Xbox a nivel de registro, evitando microcortes o tirones de rendimiento durante la ejecucion de videojuegos.
-Se puede revertir: Si, las funciones de grabacion y la interfaz de Xbox vuelven a quedar habilitadas.
+---
 
-8. Desactivar Telemetria de Microsoft Office
-Que hace: Aplica una directiva especifica en el registro orientada a bloquear el envio automatico de datos diagnosticos y de uso de la suite de Microsoft Office hacia los servidores corporativos.
-Se puede revertir: Si, se elimina la directiva de bloqueo de telemetria de la suite office.
+## 🔒 Privacidad, Bloatware e IA
 
-MODULO DE RENDIMIENTO, RED Y SERVICIOS
+| Opción | Qué hace | Tipo |
+|---|---|---|
+| **Quitar apps innecesarias (bloatware)** | Desinstala apps preinstaladas que casi nadie usa (Candy Crush, Spotify, Clima, Noticias, Mapas, Skype, Solitario, etc.) y evita que Windows instale más por su cuenta. | 🔴 No reversible* |
+| **Privacidad y telemetría al mínimo** | Reduce al mínimo posible los datos de uso que Windows envía a Microsoft y desactiva la publicidad personalizada. | 🟢 Reversible |
+| **Desactivar historial de actividad** | Evita que Windows guarde un registro de las apps, documentos y páginas que usaste (Línea de tiempo). | 🟢 Reversible |
+| **Desactivar experiencias personalizadas** | Evita que Microsoft use tus datos de diagnóstico para mostrarte sugerencias y consejos personalizados. | 🟢 Reversible |
+| **Quitar sugerencias y anuncios de Inicio** | Elimina los anuncios y apps recomendadas que a veces aparecen en el menú Inicio y la pantalla de bloqueo. | 🟢 Reversible |
+| **Desactivar telemetría de Office** | Impide que Word, Excel y el resto de Office envíen datos de uso a Microsoft. | 🟢 Reversible |
+| **Desactivar asistentes (Cortana / Copilot)** | Apaga el asistente de voz o de IA de Windows: Cortana en Windows 10, Copilot (y Recall) en Windows 11. | 🟡 Parcial* |
+| **Desactivar Autoplay y Autorun** | Evita que una memoria USB ejecute programas automáticamente al conectarla, protegiéndote de virus. | 🟢 Reversible |
+| **Mostrar extensiones de archivo** | Muestra el tipo real de cada archivo (.exe, .pdf, .docx) para detectar archivos peligrosos disfrazados, como "factura.pdf.exe". | 🟢 Reversible |
 
-9. Desactivar Autoplay (Proteccion USB)
-Que hace: Deshabilita la reproduccion automatica de medios y unidades extraibles al conectarlas al equipo, funcionando como una medida basica de seguridad para evitar la ejecucion de archivos maliciosos ocultos en memorias USB.
-Se puede revertir: Si, la funcion de reproduccion automatica se restablece por completo.
+\* La app que se elimina no se puede reinstalar desde el programa; habría que reinstalarla desde Microsoft Store.
 
-10. Desactivar Asistentes (Cortana / Hardening IA y Copilot)
-Que hace: Aplica directivas estrictas de registro orientadas a bloquear por completo las tecnologias de inteligencia artificial del sistema operativo, incluyendo Copilot y analisis de instantaneas, ademas de eliminar los paquetes relacionados si estuviesen presentes.
-Se puede revertir: Si, las restricciones sobre los asistentes e inteligencia artificial se eliminan del sistema.
+## 🎮 Rendimiento y Juegos
 
-11. Modo Juego / HAGS
-Que hace: Configura los registros del sistema para asegurar la maxima prioridad automatica de recursos orientada al rendimiento cuando se ejecutan juegos en pantalla completa o modo ventana optimizado.
-Se puede revertir: Si, el comportamiento automatico del modo de juego se revierte a los valores predeterminados.
+| Opción | Qué hace | Tipo |
+|---|---|---|
+| **Efectos visuales balanceados** | Quita animaciones y transparencias para que Windows se sienta más ágil, conservando una apariencia cuidada (fuentes suaves, ventanas con contenido al moverlas). | 🟢 Reversible |
+| **Reducir retrasos de interfaz** | Hace que los programas de inicio y los menús respondan más rápido, quitando esperas artificiales. | 🟢 Reversible |
+| **Activar Modo Juego** | Activa el Modo Juego de Windows, que prioriza los recursos del equipo para el juego que tienes abierto. | 🟢 Reversible |
+| **Activar HAGS (GPU por hardware)** | Deja que la tarjeta gráfica administre su propia carga de trabajo en vez de la CPU, lo que puede reducir la latencia en juegos. Solo se activa si tu tarjeta gráfica y su driver lo permiten; si no, no cambia nada. Pide reiniciar. | 🟢 Reversible |
+| **Desactivar grabación DVR / Xbox Game Bar** | Apaga la grabación automática en segundo plano de Xbox Game Bar, que puede consumir recursos mientras juegas. | 🟢 Reversible |
+| **Cierre rápido de apps + quitar Bing** | Cierra más rápido los programas que no responden al apagar el equipo, y quita los resultados web de Bing de la búsqueda de Windows. | 🟢 Reversible |
+| **Desactivar SysMain (solo en SSD)** | Apaga un servicio que precarga programas en la memoria. Solo se desactiva si tu disco es de estado sólido (SSD), porque en un disco duro tradicional (HDD) sí ayuda y no se toca. | 🟢 Reversible |
 
-12. Optimizacion Segura de Servicios (SSD/HDD y SysMain)
-Que hace: Modifica el tipo de inicio de servicios opcionales no criticos del sistema operativo como el administrador de credenciales de Xbox o el registro remoto, y desactiva de manera definitiva el servicio SysMain para reducir la lectura innecesaria en discos de estado solido.
-Se puede revertir: Si, todos los servicios modificados recuperan su tipo de inicio automatico y se vuelven a poner en marcha.
+## 🌐 Red, Energía y Sistema
 
-13. Tareas Programadas de Telemetria Superficial
-Que hace: Deshabilita tareas automatizadas del programador del sistema encargadas de recopilar estadisticas superficiales de participacion de los usuarios y actualizadores de experiencias de aplicaciones.
-Se puede revertir: Si, las tareas programadas pueden volver a habilitarse de forma individual o colectiva.
+| Opción | Qué hace | Tipo |
+|---|---|---|
+| **Desactivar Optimización de Entrega** | Evita que tu PC comparta partes de las actualizaciones de Windows con otros equipos por internet, ahorrando tu ancho de banda de subida. | 🟢 Reversible |
+| **Red: reducir latencia (Nagle/QoS)** | Ajusta la configuración de red para reducir los tiempos de respuesta, útil sobre todo en juegos en línea. Pide reiniciar. | 🟢 Reversible |
+| **Plan de energía Alto rendimiento** | Pone el equipo en modo de máximo rendimiento. Solo se aplica en computadoras de escritorio, nunca en laptops, para no gastar la batería. | 🟢 Reversible |
+| **Desactivar Hibernación** | Libera varios GB de espacio en disco al apagar la hibernación (y el Inicio rápido). En laptops, el programa te avisa antes, porque la hibernación suele ser la red de seguridad cuando la batería está por agotarse. | 🟢 Reversible |
+| **Desactivar tareas de telemetría** | Apaga tareas internas de Windows que recopilan datos de uso del equipo (no afecta a Windows Update). | 🟢 Reversible |
+| **Barra de tareas: ocultar Widgets/Chat o Noticias** | Oculta los Widgets y el Chat de la barra de tareas en Windows 11, o las Noticias e intereses en Windows 10. | 🟢 Reversible |
 
-14. Red, TCP/IP y Latencia (Nagle y QoS)
-Que hace: Modifica los parametros de las interfaces de red activas para optimizar la transmision de paquetes reduciendo la latencia y limita las restricciones de ancho de banda reservado por calidad de servicio.
-Se puede revertir: Si, se eliminan los parametros avanzados de latencia en las interfaces de red.
+## ⚠️ Riesgo Alto
 
-15. Rendimiento de Sistema (Cierre Rapido y Busqueda Bing)
-Que hace: Ajusta los tiempos de espera para forzar el cierre automatico de aplicaciones bloqueadas al apagar el equipo y deshabilita las sugerencias de busqueda web impulsadas por Bing directamente en el menu de inicio.
-Se puede revertir: Si, se restauran los tiempos de espera originales y las sugerencias de busqueda web.
+Estas dos opciones **reducen la seguridad** de tu equipo. El programa muestra una advertencia adicional y pide confirmarla antes de aplicarlas.
 
-MODULO DE LIMPIEZA Y MANTENIMIENTO AVANZADO
+| Opción | Qué hace | Tipo |
+|---|---|---|
+| **Desactivar Microsoft Defender** | Apaga la protección en tiempo real del antivirus de Windows. Mientras esté desactivada, virus y ransomware no serán detectados al ejecutarse. Útil solo si usas otro antivirus. | ⚠️ Alto riesgo (reversible) |
+| **Desactivar Windows Update** | Detiene las actualizaciones automáticas de Windows, incluidas las de seguridad. | ⚠️ Alto riesgo (reversible) |
 
-Este apartado incluye herramientas de ejecucion directa de un solo clic que realizan tareas profundas de mantenimiento sobre archivos del sistema y almacenamiento:
+## 🛠️ Mantenimiento Avanzado
 
-* Ejecutar DISM Completo: Examina y repara de manera automatizada la integridad de la imagen del sistema operativo utilizando los repositorios seguros de Windows.
+Estos botones ejecutan la acción de inmediato (no usan casillas ni el botón "Aplicar Cambios").
 
-* Ejecutar SFC: Analiza los archivos protegidos del sistema operativo y reemplaza aquellos que se encuentren corruptos o modificados.
+| Botón | Qué hace | Tipo |
+|---|---|---|
+| **Ejecutar DISM Completo** | Revisa y repara la imagen del sistema operativo, descargando de Microsoft los archivos dañados que haga falta reemplazar (necesita internet). Puede tardar varios minutos. | 🔵 Seguro |
+| **Ejecutar SFC /scannow** | Revisa todos los archivos importantes de Windows y repara los que estén dañados o modificados. | 🔵 Seguro |
+| **Limpieza de temporales y caché** | Abre una ventana donde eliges qué limpiar: archivos temporales, caché de actualizaciones, miniaturas, caché de navegadores (sin tocar contraseñas ni historial), etc. Libera espacio en disco. | 🔴 No reversible |
+| **Optimización de WinSxS** | Libera espacio ocupado por versiones antiguas de componentes de Windows. Te pregunta si prefieres una limpieza segura o una más agresiva (que impide desinstalar actualizaciones después). | 🔴 No reversible |
+| **Analizar almacén de componentes** | Solo muestra cuánto espacio ocupa ese almacén y si Windows recomienda limpiarlo. No borra nada. | 🔵 Solo informa |
+| **Restablecer DNS y Winsock** | Soluciona problemas de conexión a internet reiniciando la configuración de red. Pide reiniciar el equipo. | 🔵 Seguro |
+| **Verificar y activar TRIM** | Revisa y, si hace falta, activa una función que mantiene saludable y rápido un disco SSD. | 🔵 Seguro |
+| **Optimizar unidades** | Optimiza tus discos según su tipo: a los SSD les manda una señal de mantenimiento (TRIM); a los discos duros tradicionales (HDD) los desfragmenta. | 🔵 Seguro |
+| **Informe de salud de discos** | Muestra el estado de tus discos (temperatura, desgaste, horas de uso, espacio libre) sin modificar nada. | 🔵 Solo informa |
 
-* Diagnostico Inteligente de Almacenamiento: Ejecuta comandos de optimizacion de espacio y mantenimiento preventivo segun el tipo de unidad detectada en el equipo.
+---
 
-* Limpieza de Archivos Temporales y Cache: Elimina de forma segura los archivos basura acumulados en las carpetas temporales del usuario y del sistema operativo.
+## Modo oscuro / claro
 
-* Optimizacion de WinSxS: Realiza una limpieza profunda de componentes antiguos almacenados en el almacén de componentes para recuperar espacio valioso en disco.
+Arriba a la derecha hay un interruptor para cambiar entre modo oscuro y modo claro, según prefieras.
 
-* Restablecimiento de Capas de Red y DNS: Limpia la cache de resolucion de nombres y reinicia los protocolos de internet para solucionar problemas de conectividad persistentes.
+## Aviso
+
+Cada opción se verifica contra el sistema real después de aplicarse: si algo no se pudo confirmar, el programa lo indica en la consola en vez de asumir que funcionó. Aun así, se recomienda tener a mano el punto de restauración y revisar la descripción de cada opción antes de aplicarla.
